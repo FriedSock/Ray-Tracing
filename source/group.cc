@@ -27,13 +27,19 @@ Group::~Group() {
 
 // Insert an object into the array.
 void Group::addObject(int index, Object3D *obj) {
+    if (index > this->_count) {
+        //TODO error message
+        exit(1);
+    }
 
-  // YOUR CODE HERE.
+    this->_object[index] = obj;
 }
 
 bool Group::intersect(const Ray &r, Hit &h)
 {
-
-  // YOUR CODE HERE.
-
+  bool result = false;
+  for (int i = 0; i < this->_count; i++) {
+    result = this->_object[i]->intersect(r, h) || result;
+  }
+  return result;
 }

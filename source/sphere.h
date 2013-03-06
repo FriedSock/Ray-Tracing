@@ -22,6 +22,11 @@ public:
   // class.
   virtual bool intersect(const Ray &r, Hit &h);
 
+private:
+
+  Vec3f centre;
+  float radius;
+  Vec3f color;
 };
 
 #endif /* SPHERE_H_ */
