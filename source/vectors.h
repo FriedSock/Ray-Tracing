@@ -165,6 +165,9 @@ public:
 		    data[1] * data[1] +
 		    data[2] * data[2] );
     return l; }
+  float magnitudeSquared() const {
+      return data[0] * data[0] + data[1] * data[1] + data[2] * data[2];
+  }
 
   // MODIFIERS
   void Set(float d0, float d1, float d2) {
