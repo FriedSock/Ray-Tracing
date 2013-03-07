@@ -19,6 +19,12 @@ public:
   // parent class.
   virtual Ray generateRay(Vec2f point);
 
+private:
+  Vec3f centre;
+  Vec3f direction;
+  Vec3f up;
+  Vec3f horizontal;
+  float size;
 };
 
 #endif /* ORTHOGRAPHIC_CAMERA_H_ */
