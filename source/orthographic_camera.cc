@@ -11,9 +11,20 @@ OrthographicCamera::OrthographicCamera(Vec3f centre, Vec3f direction, Vec3f up, 
   this->direction.Normalize();
   this->up = up;
   this->up.Normalize();
+  
+  if (direction.Dot3(this->up) != 0){
+    float dot = this->direction.Dot3(this->up);
+    this->up = this->up - (this->direction * dot);
+    this->up.Normalize();
+  }
+
+
+
+
   this->size = size;
   Vec3f::Cross3(this->horizontal, direction, up);
   this->horizontal.Normalize();
+  this->horizontal *= -1;
 }
 
 
@@ -21,11 +32,11 @@ Ray OrthographicCamera::generateRay(Vec2f point)
 {
     Vec3f up_component = this->up * (this->size / 2);
     Vec3f h_component = this->horizontal * (this->size / 2);   
-    Vec3f top_left = (this->centre + up_component) + h_component;
+    Vec3f top_left = (this->centre + up_component) - h_component;
     
     Vec3f right = this->horizontal;
     right *= (point.x() * this->size);
-    right *= -1;
+    
     Vec3f down = this->up;
     down *= (point.y() * this->size);
     down *= -1;

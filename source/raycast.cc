@@ -79,7 +79,6 @@ int main(int argc, char** argv) {
 
 // Render a color image of objects in a scene.
 void renderRGBImage(SceneParser &scene, Image &image) {
-
   Group *group = scene.getGroup();
   Camera *camera = scene.getCamera();
   Vec3f background = scene.getBackgroundColor();
@@ -104,8 +103,6 @@ void renderRGBImage(SceneParser &scene, Image &image) {
 
 // Render an image showing the depth of objects from the camera.
 void renderDepthImage(SceneParser &scene, Image &image) {
-
-  // YOUR CODE HERE.
   Group *group = scene.getGroup();
   Camera *camera = scene.getCamera();
   Vec3f background = scene.getBackgroundColor();
@@ -121,7 +118,6 @@ void renderDepthImage(SceneParser &scene, Image &image) {
           if (group->intersect(ray, *hit) && hit->getT() <= _depthMax && 
                   hit->getT() >= _depthMin) {
             float grey_val = 1 - (hit->getT() - _depthMin) / (_depthMax - _depthMin);
-            cout << grey_val << endl;
             image.SetPixel(i, j, Vec3f(grey_val, grey_val, grey_val));
           } else {
             image.SetPixel(i, j, Vec3f(0,0,0));
