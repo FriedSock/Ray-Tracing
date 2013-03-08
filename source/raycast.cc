@@ -78,8 +78,13 @@ int main(int argc, char** argv) {
 
 // Render a color image of objects in a scene.
 void renderRGBImage(SceneParser &scene, Image &image) {
-
-  // YOUR CODE HERE.
+  int i;
+  int j;
+  for (i = 0; i < image.Width(); i++){
+      for (j = 0; j < image.Height(); j++) {
+          image.SetPixel(i, j, Vec3f(0,1,0));
+      }
+  }
 
 }
 
