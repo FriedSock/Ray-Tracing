@@ -18,9 +18,6 @@ OrthographicCamera::OrthographicCamera(Vec3f centre, Vec3f direction, Vec3f up, 
     this->up.Normalize();
   }
 
-
-
-
   this->size = size;
   Vec3f::Cross3(this->horizontal, direction, up);
   this->horizontal.Normalize();
