@@ -85,14 +85,13 @@ void renderRGBImage(SceneParser &scene, Image &image) {
   Vec3f background = scene.getBackgroundColor();
   Hit *hit = new Hit(INFINITY, background);
   
-  int i;
-  int j;
+  float i;
+  float j;
   for (i = 0; i < image.Width(); i++){
       for (j = 0; j < image.Height(); j++) {
           hit->set(INFINITY, background);
-          Vec2f point = Vec2f(i, j);
+          Vec2f point = Vec2f(i / image.Width(), j / image.Height());
           Ray ray = camera->generateRay(point);
-          cout << ray << endl;
           if (group->intersect(ray, *hit)){
             image.SetPixel(i, j, hit->getColor());
           } else {
