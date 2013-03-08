@@ -106,5 +106,27 @@ void renderRGBImage(SceneParser &scene, Image &image) {
 void renderDepthImage(SceneParser &scene, Image &image) {
 
   // YOUR CODE HERE.
-
+  Group *group = scene.getGroup();
+  Camera *camera = scene.getCamera();
+  Vec3f background = scene.getBackgroundColor();
+  Hit *hit = new Hit(INFINITY, background);
+  
+  float i;
+  float j;
+  for (i = 0; i < image.Width(); i++){
+      for (j = 0; j < image.Height(); j++) {
+          hit->set(INFINITY, background);
+          Vec2f point = Vec2f(i / image.Width(), j / image.Height());
+          Ray ray = camera->generateRay(point);
+          if (group->intersect(ray, *hit) && hit->getT() <= _depthMax && 
+                  hit->getT() >= _depthMin) {
+            float grey_val = 1 - (hit->getT() - _depthMin) / (_depthMax - _depthMin);
+            cout << grey_val << endl;
+            image.SetPixel(i, j, Vec3f(grey_val, grey_val, grey_val));
+          } else {
+            image.SetPixel(i, j, Vec3f(0,0,0));
+          }
+      }
+  }
 }
+
