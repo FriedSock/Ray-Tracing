@@ -1,4 +1,5 @@
 #include "raycast.h"
+#include <stdio.h>
 
 // Globals:
 
@@ -78,11 +79,25 @@ int main(int argc, char** argv) {
 
 // Render a color image of objects in a scene.
 void renderRGBImage(SceneParser &scene, Image &image) {
+
+  Group *group = scene.getGroup();
+  Camera *camera = scene.getCamera();
+  Vec3f background = scene.getBackgroundColor();
+  Hit *hit = new Hit(INFINITY, background);
+  
   int i;
   int j;
   for (i = 0; i < image.Width(); i++){
       for (j = 0; j < image.Height(); j++) {
-          image.SetPixel(i, j, Vec3f(0,1,0));
+          hit->set(INFINITY, background);
+          Vec2f point = Vec2f(i, j);
+          Ray ray = camera->generateRay(point);
+          cout << ray << endl;
+          if (group->intersect(ray, *hit)){
+            image.SetPixel(i, j, hit->getColor());
+          } else {
+            image.SetPixel(i, j, background);
+          }
       }
   }
 
